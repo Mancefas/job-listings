@@ -1,0 +1,91 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+p {
+  margin: 0;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.job-item {
+    
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 60vw;
+    min-height: 20vh;
+    height: fit-content;
+    padding: 0.5rem;
+    background-color: #a5a5a5;
+    border: 2px solid;
+    border-color: #a5a5a5;
+    border-radius: 8px;
+    text-decoration: none;
+    color: whitesmoke;
+
+    &:hover {
+      border: 2px solid;
+      border-color: #646cff;
+      color: whitesmoke;
+    }
+  }
+
+  
+
+  &__top-container {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__company-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__company-img {
+    height: 1rem;
+    aspect-ratio: 1/1;
+    border-radius: 8px;
+  }
+
+  &__inner-container {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  &__company {
+    font-weight: bold;
+    color: black;
+  }
+
+}
+
+.job-listing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+  gap: 1rem;
+
+  &__error-text {
+    color: red;
+  }
+}
+
+.btns-container {
+  display: flex;
+  gap: 0.5rem;
+}
