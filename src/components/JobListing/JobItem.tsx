@@ -12,14 +12,11 @@ const JobItem = ({title, company, company_img, salary, city, time_added, link}: 
   return (
     <a className="job-item__container" href={link}>
       
-      <div className="job-item__top-container">
+      <p className="job-item__title">{title}</p>
+
+      <div className="job-item__company-container">
         <img src={company_img} alt="" className="job-item__company-img" />
-
-        <div className="job-item__company-container">
-          <p>{title}</p>
-          <p className="job-item__company">{company}</p>
-        </div>
-
+        <p className="job-item__company">{company}</p>
       </div>
 
       <div className="job-item__inner-container">

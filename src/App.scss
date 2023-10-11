@@ -1,5 +1,5 @@
 $color-primary: #fff;
-$color-secondary: #f5de5e;
+$color-focus: #f5de5e;
 $color-background: #a5a5a5;
 $color-text: #000000;
 
@@ -22,7 +22,7 @@ body {
 }
 
 .diff-bg {
-  background-color: $color-secondary;
+  background-color: $color-focus;
 }
 
 .logo:hover {
@@ -56,14 +56,13 @@ body {
     }
   }
 
-  &__top-container {
+  &__company-container {
     display: flex;
     justify-content: space-between;
   }
 
-  &__company-container {
-    display: flex;
-    flex-direction: column;
+  &__title {
+    font-weight: bold;
   }
 
   &__company-img {
@@ -80,8 +79,8 @@ body {
   }
 
   &__company {
-    font-weight: bold;
     color: black;
+    align-self: center;
   }
 
 }
@@ -110,5 +109,27 @@ body {
    min-width: 40%;
    width: fit-content;
    text-align: center;
+  }
+
+  button:focus, button:focus-visible {
+    outline: none;
+  }
+}
+
+@media screen and (min-width: 600px){
+  .job-listing {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .job-item {
+    &__container {
+    width: 40%;
+    }
+    
+    &__company-container {
+      flex-direction: column;
+    }
   }
 }
