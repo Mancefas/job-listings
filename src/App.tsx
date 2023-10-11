@@ -10,7 +10,7 @@ function App() {
     <>
     <div className="btns-container">
       {jobMarkets.map((item) => {
-         return <button key={item} onClick={() => setMarket(item)}>{item}</button>
+         return <button className={`${market == item ? 'diff-bg' : '' }`} key={item} onClick={() => setMarket(item)}>{item}</button>
         } )}
     </div>
 

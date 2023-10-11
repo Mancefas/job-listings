@@ -1,12 +1,28 @@
+$color-primary: #fff;
+$color-secondary: #f5de5e;
+$color-background: #a5a5a5;
+$color-text: #000000;
+
 #root {
   max-width: 1280px;
+  min-height: 100vh;
+  height: fit-content;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 }
 
 p {
   margin: 0;
+}
+
+body {
+  background-color: $color-background;
+  height: fit-content;
+}
+
+.diff-bg {
+  background-color: $color-secondary;
 }
 
 .logo:hover {
@@ -19,34 +35,30 @@ p {
 
 .job-item {
     
-
   &__container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content:space-evenly;
     width: 60vw;
     min-height: 20vh;
     height: fit-content;
     padding: 0.5rem;
-    background-color: #a5a5a5;
+    background-color: $color-primary;
     border: 2px solid;
-    border-color: #a5a5a5;
+    border-color: $color-primary;
     border-radius: 8px;
     text-decoration: none;
-    color: whitesmoke;
+    color: $color-text;
 
     &:hover {
       border: 2px solid;
       border-color: #646cff;
-      color: whitesmoke;
     }
   }
 
-  
-
   &__top-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
   }
 
   &__company-container {
@@ -55,9 +67,10 @@ p {
   }
 
   &__company-img {
-    height: 1rem;
-    aspect-ratio: 1/1;
+    height: 60px;
+    aspect-ratio: 1.2/1;
     border-radius: 8px;
+    object-fit: scale-down;
   }
 
   &__inner-container {
@@ -88,5 +101,14 @@ p {
 .btns-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  width: 60vw;
+  margin: auto;
   gap: 0.5rem;
+
+  button {
+   min-width: 40%;
+   width: fit-content;
+   text-align: center;
+  }
 }

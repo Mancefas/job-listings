@@ -1,18 +1,19 @@
 export type JobObject = {
   title: string
   company : string
+  company_img: string
   salary: string
   city: string
   time_added: string
   link?: string
 }
 
-const JobItem = ({title, company, salary, city, time_added, link}: JobObject) => {
+const JobItem = ({title, company, company_img, salary, city, time_added, link}: JobObject) => {
   return (
     <a className="job-item__container" href={link}>
       
       <div className="job-item__top-container">
-        {/* <img src="" alt="" className="job-item__company-img" /> */}
+        <img src={company_img} alt="" className="job-item__company-img" />
 
         <div className="job-item__company-container">
           <p>{title}</p>
