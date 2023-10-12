@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getJobListings } from "../../helpers/apiCalls";
 import JobItem from "./JobItem";
 import { JobObject } from "./JobItem";
+import ButtonToTop from "../ButtonToTop";
+import LoadingSpinner from "../LoadingSpinner";
 
 type PropTypes = {
   market: string
@@ -35,11 +37,14 @@ const JobListing = ({ market }: PropTypes) => {
       }, [market]);
           
   return (
+    <>
     <section className="job-listing">
         {error && <h2 className="job-listing__error-text">There was an error... {error}</h2>}
-        {loading && <h2>loading...</h2>}
+        {loading && <LoadingSpinner />}
         {jobListings && jobListings.map((job) => <JobItem {...job} key={job.link} />)}
     </section>
+    {jobListings && <ButtonToTop />}
+    </>
   )
 }
 
