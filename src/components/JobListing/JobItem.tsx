@@ -10,7 +10,7 @@ export type JobObject = {
 
 const JobItem = ({title, company, company_img, salary, city, time_added, link}: JobObject) => {
   return (
-    <a className="job-item__container" href={link}>
+    <a className="job-item__container" href={link} target="_blank">
       
       <p className="job-item__title">{title}</p>
 
