@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 import { getJobListings } from "../../helpers/apiCalls";
+import { jobMarkets } from "../../constants/constants";
 import JobItem from "./JobItem";
 import { JobObject } from "./JobItem";
 import ButtonToTop from "../ButtonToTop";
 import LoadingSpinner from "../LoadingSpinner";
+import ButtonNextListings from "../ButtonNextListings";
 
 type PropTypes = {
   market: string
+  setMarket: (newMarket: string) => void;
 }
 
-const JobListing = ({ market }: PropTypes) => {
+const JobListing = ({ market, setMarket }: PropTypes) => {
     const [jobListings, setJobListings] = useState<JobObject[] | null >(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)    
+    const lastMarket = jobMarkets.indexOf(market) + 1 == jobMarkets.length 
 
     useEffect(() => {
         const fetchData = async () => {
@@ -43,7 +47,8 @@ const JobListing = ({ market }: PropTypes) => {
         {loading && <LoadingSpinner />}
         {jobListings && jobListings.map((job) => <JobItem {...job} key={job.link} />)}
     </section>
-    {jobListings && <ButtonToTop />}
+    {(jobListings && lastMarket) && <ButtonToTop />}
+    {(jobListings && !lastMarket) && <ButtonNextListings market={market} setMarket={setMarket}/>}
     </>
   )
 }
