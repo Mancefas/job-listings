@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import './App.scss'
 import { JobListing } from './components/JobListing';
+import { jobMarkets } from './constants/constants';
 
 function App() {
-  const jobMarkets = ["cvbankas", "cvlt", "cvmarket", "cvonline"];
   const [market, setMarket] = useState<string | null>(null)
 
   return (
@@ -14,7 +14,7 @@ function App() {
         } )}
     </div>
 
-    {market && <JobListing market={market} />}
+    {market && <JobListing market={market} setMarket={setMarket} />}
     </>
   )
 }
