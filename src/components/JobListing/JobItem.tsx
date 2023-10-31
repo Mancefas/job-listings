@@ -1,3 +1,5 @@
+import AIButton from "../AIButton"
+
 export type JobObject = {
   title: string
   company : string
@@ -9,8 +11,11 @@ export type JobObject = {
 }
 
 const JobItem = ({title, company, company_img, salary, city, time_added, link}: JobObject) => {
+  const withAIPosibility = link ? link.includes("cvbankas") : null
+
   return (
-    <a className="job-item__container" href={link} target="_blank">
+    <div className="job-item__container">
+    <a  href={link} target="_blank">
       
       <p className="job-item__title">{title}</p>
 
@@ -26,6 +31,10 @@ const JobItem = ({title, company, company_img, salary, city, time_added, link}: 
 
       <p className="job-item__time-added">{time_added}</p>
     </a>
+
+    {withAIPosibility && <AIButton linkToAdd={link} />}
+
+    </div>
   )
 }
 

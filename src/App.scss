@@ -2,6 +2,7 @@ $color-primary: #fff;
 $color-focus: #f5de5e;
 $color-background: #a5a5a5;
 $color-text: #000000;
+$color-ai-button: #97B1A6;
 
 #root {
   max-width: 1280px;
@@ -81,6 +82,11 @@ body {
   &__company {
     color: black;
     align-self: center;
+  }
+
+  &__ai-button {
+    width: fit-content;
+    align-self: flex-end;
   }
 
 }
