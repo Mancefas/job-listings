@@ -8,7 +8,7 @@ type PropTypes = {
 }
 
 const ButtonNextListings = ({ market, setMarket }: PropTypes) => {
-    const countToThis = 5;
+    const countToThis = 3;
 
     const [time, setTime] = useState<number>(countToThis)
     const componentRef = useRef<HTMLButtonElement | null>(null);

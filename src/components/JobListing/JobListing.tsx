@@ -4,7 +4,7 @@ import { jobMarkets } from "../../constants/constants";
 import JobItem from "./JobItem";
 import { JobObject } from "./JobItem";
 import ButtonToTop from "../ButtonToTop";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../LoadingSpinners";
 import ButtonNextListings from "../ButtonNextListings";
 
 type PropTypes = {
