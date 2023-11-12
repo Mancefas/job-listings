@@ -1,3 +1,3 @@
-import AIButton from "./AiButton";
+import AIButton from "./AIButton";
 
 export default AIButton;
