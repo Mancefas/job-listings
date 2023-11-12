@@ -13,7 +13,7 @@ function App() {
          return <button className={`${market == item ? 'diff-bg' : '' }`} key={item} onClick={() => setMarket(item)}>{item}</button>
         } )}
     </div>
-
+    {!market && <img className='main-img' src='../reading.png' />}
     {market && <JobListing market={market} setMarket={setMarket} />}
     </>
   )
