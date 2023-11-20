@@ -35,14 +35,6 @@ body {
   background-color: $color-focus;
 }
 
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
 .job-item {
     
   &__container {
@@ -116,7 +108,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 60vw;
+  width: 70vw;
   margin: auto;
   gap: 0.5rem;
 
@@ -136,6 +128,10 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .btns-container {
+    width: 50vw;
   }
 
   .main-img {
