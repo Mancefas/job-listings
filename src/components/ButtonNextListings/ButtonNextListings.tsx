@@ -46,6 +46,7 @@ const ButtonNextListings = ({ market, setMarket }: PropTypes) => {
       // clear interval when unmounting
       return () => {
         clearInterval(interval);
+        navigator.vibrate(0);
       };
     }, [inViewport]);
     
