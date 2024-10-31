@@ -7,6 +7,16 @@ type PropTypes = {
   setMarket: (newMarket: string) => void;
 }
 
+const vibratePhonePatern = (t: number) => {
+    const patern = [];
+
+    for (let i = 0; i < t; i++ ){
+        patern.push(0, 1000)
+    }
+
+    return patern;
+}
+
 const ButtonNextListings = ({ market, setMarket }: PropTypes) => {
     const countToThis = 3;
 
@@ -21,6 +31,8 @@ const ButtonNextListings = ({ market, setMarket }: PropTypes) => {
         return
       }
 
+      navigator.vibrate(vibratePhonePatern(countToThis));
+      
       // add interval to count time to 0
       const interval = setInterval(() => {
         setTime((prevTime) => {
