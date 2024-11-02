@@ -45,7 +45,7 @@ const JobListing = ({ market, setMarket }: PropTypes) => {
     <section className="job-listing">
         {error && !loading && !jobListings && <h2 className="job-listing__error-text">There was an error... {error}</h2>}
         {loading && <LoadingSpinner />}
-        {jobListings && jobListings.map((job) => <JobItem {...job} key={job.link} />)}
+        {jobListings && jobListings.map((job) => <JobItem {...job} key={job.link} market={market} />)}
     </section>
     {(jobListings && lastMarket) && <ButtonToTop />}
     {(jobListings && !lastMarket) && <ButtonNextListings market={market} setMarket={setMarket}/>}

@@ -8,9 +8,10 @@ export type JobObject = {
   city: string
   time_added: string
   link?: string
+  market: string
 }
 
-const JobItem = ({title, company, company_img, salary, city, time_added, link}: JobObject) => {
+const JobItem = ({title, company, company_img, salary, city, time_added, link, market}: JobObject) => {
   const withAIPosibility = link ? link.includes("cvbankas") : null
 
   return (
@@ -32,7 +33,7 @@ const JobItem = ({title, company, company_img, salary, city, time_added, link}: 
       <p className="job-item__time-added">{time_added}</p>
     </a>
 
-    {withAIPosibility && <AIButton linkToAdd={link} />}
+    <AIButton market={market} linkToAdd={link} />
 
     </div>
   )

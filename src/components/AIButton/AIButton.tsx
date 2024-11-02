@@ -4,7 +4,7 @@ import { getJobListings } from "../../helpers/apiCalls";
 import LoadingWheel from "../LoadingSpinners/LoadingWheel";
 
 
-const AIButton = ({ linkToAdd }: { linkToAdd: string | undefined }) => {
+const AIButton = ({ market, linkToAdd }: { market: string, linkToAdd: string | undefined }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [shortSummary, setShortSummary] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
@@ -14,9 +14,7 @@ const AIButton = ({ linkToAdd }: { linkToAdd: string | undefined }) => {
     setLoading(true)
     setShortSummary(null)
     try {
-        // for now only cvbankas has this feature
-      const data = await getJobListings(`cvbankas/${linkToAdd}`);
-      
+      const data = await getJobListings(`${market + "/"}`, `${linkToAdd}`);
       if (data.error) {
         throw new Error(data.error);
       } else {
