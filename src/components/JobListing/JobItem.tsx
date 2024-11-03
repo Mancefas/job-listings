@@ -12,7 +12,6 @@ export type JobObject = {
 }
 
 const JobItem = ({title, company, company_img, salary, city, time_added, link, market}: JobObject) => {
-  const withAIPosibility = link ? link.includes("cvbankas") : null
 
   return (
     <div className="job-item__container">
