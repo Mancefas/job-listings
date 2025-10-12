@@ -151,5 +151,8 @@ body {
     &__company-container {
       flex-direction: column;
     }
+    &__buttons-container {
+      gap: 1rem;
+    }
   }
 }
