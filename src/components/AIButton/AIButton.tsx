@@ -3,8 +3,16 @@ import { Button, Modal, ModalClose, Typography, Sheet} from '@mui/joy'
 import { getJobListings } from "../../helpers/apiCalls";
 import LoadingWheel from "../LoadingSpinners/LoadingWheel";
 
+type agent = "recruiter" | "more-to-come"
 
-const AIButton = ({ market, linkToAdd }: { market: string, linkToAdd: string | undefined }) => {
+type PropTypes = {
+  buttonText?: string
+  market: string
+  linkToAdd: string | undefined
+  agent?: agent
+}
+
+const AIButton = ({buttonText, market, linkToAdd, agent }: PropTypes) => {
   const [open, setOpen] = useState<boolean>(false);
   const [shortSummary, setShortSummary] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
@@ -14,7 +22,7 @@ const AIButton = ({ market, linkToAdd }: { market: string, linkToAdd: string | u
     setLoading(true)
     setShortSummary(null)
     try {
-      const data = await getJobListings(`${market + "/"}`, `${linkToAdd}`);
+      const data = await getJobListings(`${agent ? (agent + "/") : ""}` + `${market + "/"}`, `${linkToAdd}`);
       if (data.error) {
         throw new Error(data.error);
       } else {
@@ -47,7 +55,7 @@ const AIButton = ({ market, linkToAdd }: { market: string, linkToAdd: string | u
   return (
     <>
       <Button className='job-item__ai-button' color="neutral"  variant="soft" size="sm" onClick={openModalWithData}>
-        {!loading && !error && 'Short summary'}
+        {!loading && !error && (buttonText)}
         {loading && !error && <LoadingWheel />}
         {!loading && error && !shortSummary && 'error'}
       </Button>

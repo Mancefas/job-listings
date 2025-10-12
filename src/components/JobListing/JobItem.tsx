@@ -32,7 +32,10 @@ const JobItem = ({title, company, company_img, salary, city, time_added, link, m
       <p className="job-item__time-added">{time_added}</p>
     </a>
 
-    <AIButton market={market} linkToAdd={link} />
+    <div className="job-item__buttons-container">
+      <AIButton buttonText="Recruiter comment" agent="recruiter" market={market} linkToAdd={link} />
+      <AIButton buttonText="Short summary" market={market} linkToAdd={link} />
+    </div>
 
     </div>
   )
