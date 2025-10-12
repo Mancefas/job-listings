@@ -156,3 +156,13 @@ body {
     }
   }
 }
+
+@media screen and (max-width: 600px){
+   
+  .job-item {
+
+    &__buttons-container {
+      gap: 1rem;
+    }
+  }
+ }
