@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button, Modal, ModalClose, Typography, Sheet} from '@mui/joy'
 import { getJobListings } from "../../helpers/apiCalls";
 import LoadingWheel from "../LoadingSpinners/LoadingWheel";
+import AIRecruiterModal, { dataFromApi } from "../AIRecruiterModal/AIRecruiterModal";
 
 type agent = "recruiter" | "more-to-come"
 
@@ -14,24 +15,35 @@ type PropTypes = {
 
 const AIButton = ({buttonText, market, linkToAdd, agent }: PropTypes) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [shortSummary, setShortSummary] = useState<string | null>(null)
+  const [shortSummary, setShortSummary] = useState<string | dataFromApi | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
   const fetchData = async () => {
-    setLoading(true)
-    setShortSummary(null)
+    setLoading(true);
+    setShortSummary(null);
     try {
-      const data = await getJobListings(`${agent ? (agent + "/") : ""}` + `${market + "/"}`, `${linkToAdd}`);
-      if (data.error) {
-        throw new Error(data.error);
+      if (agent) {
+        const dataWithAgent = await getJobListings(`${agent}/` + `${market + "/"}`, `${linkToAdd}`);
+        if (dataWithAgent.error) {
+          setLoading(false)
+          throw new Error(dataWithAgent.error);
+        } else {
+          setShortSummary(JSON.parse(dataWithAgent.data) as dataFromApi);
+        }
       } else {
-        setLoading(false)
-        setShortSummary(data.data);
+        const dataWithoutAgent = await getJobListings(`${market + "/"}`, `${linkToAdd}`);
+        if (dataWithoutAgent.error) {
+          setLoading(false)
+          throw new Error(dataWithoutAgent.error);
+        } else {
+          setShortSummary(dataWithoutAgent.data);
+        }
       }
+      setLoading(false);
     } catch (error: any) {
-      setLoading(false)
-      setError(error.message)
+      setLoading(false);
+      setError(error.message);
     }
   };
 
@@ -39,7 +51,6 @@ const AIButton = ({buttonText, market, linkToAdd, agent }: PropTypes) => {
     fetchData();
   }
 
-//   open modal only when got data from fetch
   useEffect(() => {
     if (!shortSummary) return
     setOpen(true)
@@ -59,39 +70,42 @@ const AIButton = ({buttonText, market, linkToAdd, agent }: PropTypes) => {
         {loading && !error && <LoadingWheel />}
         {!loading && error && !shortSummary && 'error'}
       </Button>
-      <Modal
-        aria-labelledby="modal-title"
-        aria-describedby="modal-desc"
-        open={open}
-        onClose={closeModal}
-        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-      >
-        <Sheet
-          variant="outlined"
-          sx={{
-            maxWidth: 500,
-            borderRadius: 'md',
-            p: 3,
-            boxShadow: 'lg',
-          }}
-        >
-          <ModalClose variant="plain" sx={{ m: 1 }} />
-          <Typography
-            component="h2"
-            id="modal-title"
-            level="h4"
-            textColor="inherit"
-            fontWeight="lg"
-            mb={1}
-          >
-            Job summary
-          </Typography>
-          <Typography id="modal-desc" textColor="text.tertiary">
-          {/* 1+ years of experience in developing tools and systems for smart electricity meter administration; Experience working with the .NET framework; Knowledge of OOP; Experience working with SQL and REST API. */}
-          {shortSummary}
-          </Typography>
-        </Sheet>
-      </Modal>
+      {agent && (<AIRecruiterModal data={shortSummary as dataFromApi} open={open} closeModal={closeModal} />)}
+      {!agent && (
+              <Modal
+                aria-labelledby="modal-title"
+                aria-describedby="modal-desc"
+                open={open}
+                onClose={closeModal}
+                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+              >
+                <Sheet
+                  variant="outlined"
+                  sx={{
+                    maxWidth: 500,
+                    borderRadius: 'md',
+                    p: 3,
+                    boxShadow: 'lg',
+                  }}
+                >
+                  <ModalClose variant="plain" sx={{ m: 1 }} />
+                  <Typography
+                    component="h2"
+                    id="modal-title"
+                    level="h4"
+                    textColor="inherit"
+                    fontWeight="lg"
+                    mb={1}
+                  >
+                    Job summary
+                  </Typography>
+                  <Typography id="modal-desc" textColor="text.tertiary">
+                  {/* 1+ years of experience in developing tools and systems for smart electricity meter administration; Experience working with the .NET framework; Knowledge of OOP; Experience working with SQL and REST API. */}
+                  {shortSummary as string}
+                  </Typography>
+                </Sheet>
+              </Modal>
+      )}
     </>
   );
 }
