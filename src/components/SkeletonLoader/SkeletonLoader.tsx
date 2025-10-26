@@ -5,7 +5,7 @@ const SkeletonLoader = () => {
     return (
         <>
             {[...Array(itemsCount)].map(() => (
-                    <Skeleton animation='wave' variant="rectangular" width={500} height={250} sx={{borderRadius: '8px', padding: '0.5rem'}} />
+                    <Skeleton animation='wave' variant="rectangular" width="70%" height={250} sx={{borderRadius: '8px', padding: '0.5rem', maxWidth: "500px"}} />
             ))}
         </>
     )
