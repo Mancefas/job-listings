@@ -4,7 +4,6 @@ import { jobMarkets } from "../../constants/constants";
 import JobItem from "./JobItem";
 import { JobObject } from "./JobItem";
 import ButtonToTop from "../ButtonToTop";
-import LoadingSpinner from "../LoadingSpinners";
 import ButtonNextListings from "../ButtonNextListings";
 import SkeletonLoader from "../SkeletonLoader";
 
