@@ -22,10 +22,9 @@ const ButtonNextListings = ({ market, setMarket }: PropTypes) => {
 
     const [time, setTime] = useState<number>(countToThis)
     const componentRef = useRef<HTMLButtonElement | null>(null);
-    const inViewport = useIntersection(componentRef, '0px');
+    const inViewport = useIntersection(componentRef as React.RefObject<Element>, '0px');
     
     useEffect(() => {
-      // if component is not in view return (when first time useEffect runs)
       if (!inViewport) {
         setTime(countToThis)
         return
@@ -33,7 +32,6 @@ const ButtonNextListings = ({ market, setMarket }: PropTypes) => {
 
       navigator.vibrate(vibratePhonePatern(countToThis));
       
-      // add interval to count time to 0
       const interval = setInterval(() => {
         setTime((prevTime) => {
           if (prevTime === 1) {
@@ -43,7 +41,6 @@ const ButtonNextListings = ({ market, setMarket }: PropTypes) => {
         });
       }, 1000);
       
-      // clear interval when unmounting
       return () => {
         clearInterval(interval);
         navigator.vibrate(0);
@@ -51,9 +48,7 @@ const ButtonNextListings = ({ market, setMarket }: PropTypes) => {
     }, [inViewport]);
     
 
-    // when component is in view and the time ran out - load function
     if (inViewport && (time === 0)) {
-      // find current market index add 1 to that index and get that new market
       const newMarket = jobMarkets[jobMarkets.indexOf(market) + 1]
       setTime(countToThis)
       setMarket(newMarket)
