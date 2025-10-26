@@ -4,8 +4,8 @@ import { jobMarkets } from "../../constants/constants";
 import JobItem from "./JobItem";
 import { JobObject } from "./JobItem";
 import ButtonToTop from "../ButtonToTop";
-import LoadingSpinner from "../LoadingSpinners";
 import ButtonNextListings from "../ButtonNextListings";
+import SkeletonLoader from "../SkeletonLoader";
 
 type PropTypes = {
   market: string
@@ -44,7 +44,7 @@ const JobListing = ({ market, setMarket }: PropTypes) => {
     <>
     <section className="job-listing">
         {error && !loading && !jobListings && <h2 className="job-listing__error-text">There was an error... {error}</h2>}
-        {loading && <LoadingSpinner />}
+        {loading && <SkeletonLoader />}
         {jobListings && jobListings.map((job) => <JobItem {...job} key={job.link} market={market} />)}
     </section>
     {(jobListings && lastMarket) && <ButtonToTop />}
