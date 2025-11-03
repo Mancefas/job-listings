@@ -10,7 +10,7 @@ export type dataFromApi = {
 }
 
 type PropTypes = {
-    data: dataFromApi
+    data: dataFromApi | null
     open: boolean
     closeModal: () => void
 }
