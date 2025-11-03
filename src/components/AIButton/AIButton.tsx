@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button, Modal, ModalClose, Typography, Sheet} from '@mui/joy'
-import { getJobListings } from "../../helpers/apiCalls";
+import { getJobRecruiterComment, getShortJobSummary } from '../../helpers/apiCalls'
 import LoadingWheel from "../LoadingSpinners/LoadingWheel";
 import AIRecruiterModal, { dataFromApi } from "../AIRecruiterModal/AIRecruiterModal";
 
@@ -16,6 +16,7 @@ type PropTypes = {
 const AIButton = ({buttonText, market, linkToAdd, agent }: PropTypes) => {
   const [open, setOpen] = useState<boolean>(false);
   const [shortSummary, setShortSummary] = useState<string | dataFromApi | null>(null)
+  const [jobComment, setJobComment] = useState<dataFromApi | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -24,20 +25,24 @@ const AIButton = ({buttonText, market, linkToAdd, agent }: PropTypes) => {
     setShortSummary(null);
     try {
       if (agent) {
-        const dataWithAgent = await getJobListings(`${agent}/` + `${market + "/"}`, `${linkToAdd}`);
+        const dataWithAgent = await getJobRecruiterComment(`${agent}/` + `${market + "/"}`, `${linkToAdd}`);
         if (dataWithAgent.error) {
           setLoading(false)
           throw new Error(dataWithAgent.error);
         } else {
-          setShortSummary(JSON.parse(dataWithAgent.data) as dataFromApi);
+            if (dataWithAgent.data){
+                setJobComment(dataWithAgent.data);
+            }
         }
       } else {
-        const dataWithoutAgent = await getJobListings(`${market + "/"}`, `${linkToAdd}`);
+        const dataWithoutAgent = await getShortJobSummary(`${market + "/"}`, `${linkToAdd}`);
         if (dataWithoutAgent.error) {
           setLoading(false)
           throw new Error(dataWithoutAgent.error);
         } else {
-          setShortSummary(dataWithoutAgent.data);
+            if (dataWithoutAgent?.data) {
+                setShortSummary(dataWithoutAgent.data);
+            }
         }
       }
       setLoading(false);
@@ -68,9 +73,9 @@ const AIButton = ({buttonText, market, linkToAdd, agent }: PropTypes) => {
       <Button className='job-item__ai-button' color="neutral"  variant="soft" size="sm" onClick={openModalWithData}>
         {!loading && !error && (buttonText)}
         {loading && !error && <LoadingWheel />}
-        {!loading && error && !shortSummary && 'error'}
+        {!loading && error && (!shortSummary || !jobComment) && 'error'}
       </Button>
-      {agent && (<AIRecruiterModal data={shortSummary as dataFromApi} open={open} closeModal={closeModal} />)}
+      {agent && (<AIRecruiterModal data={jobComment} open={open} closeModal={closeModal} />)}
       {!agent && (
               <Modal
                 aria-labelledby="modal-title"
