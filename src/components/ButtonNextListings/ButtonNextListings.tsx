@@ -10,10 +10,9 @@ type PropTypes = {
 const vibratePhonePatern = (t: number) => {
     const patern = [];
 
-    for (let i = 1; i < t; i++ ){
+    for (let i = 0; i < t; i++ ){
         patern.push(0, 1000)
     }
-
     return patern;
 }
 
@@ -30,8 +29,6 @@ const ButtonNextListings = ({ market, setMarket }: PropTypes) => {
         return
       }
 
-      navigator.vibrate(vibratePhonePatern(countToThis));
-      
       const interval = setInterval(() => {
         setTime((prevTime) => {
           if (prevTime === 1) {
@@ -39,6 +36,7 @@ const ButtonNextListings = ({ market, setMarket }: PropTypes) => {
           }
           return prevTime - 1;
         });
+        navigator.vibrate(vibratePhonePatern(countToThis));
       }, 1000);
       
       return () => {
