@@ -10,7 +10,7 @@ type PropTypes = {
 const vibratePhonePatern = (t: number) => {
     const patern = [];
 
-    for (let i = 0; i < t; i++ ){
+    for (let i = 1; i < t; i++ ){
         patern.push(0, 1000)
     }
 

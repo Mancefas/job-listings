@@ -101,6 +101,7 @@ body {
 .job-listing {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding: 1rem 0;
   gap: 1rem;
@@ -130,11 +131,6 @@ body {
 }
 
 @media screen and (min-width: 600px){
-  .job-listing {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
 
   .btns-container {
     width: 50vw;
@@ -148,7 +144,7 @@ body {
     &__container {
     width: 40%;
     }
-    
+
     &__company-container {
       flex-direction: column;
     }
