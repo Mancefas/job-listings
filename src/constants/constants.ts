@@ -1,1 +1,1 @@
-export const jobMarkets = ["cvbankas", "cvlt", "cvmarket", "cvonline(dead?)"];
+export const jobMarkets = ["cvbankas", "cvlt", "cvmarket", "cvonline"];
