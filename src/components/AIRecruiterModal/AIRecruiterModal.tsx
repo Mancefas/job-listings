@@ -16,7 +16,7 @@ type PropTypes = {
 }
 
 const AIRecruiterModal = ({data, open, closeModal}: PropTypes) => {
-  if (!data) return;
+  if (!data) return null;
 
   const { match_percentage, summary, strengths, missing_qualifications, overqualified_areas, recommendations } = data;
   

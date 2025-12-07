@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import { Button, Modal, ModalClose, Typography, Sheet} from '@mui/joy'
+import { Button } from '@mui/joy'
+import {JobListingCommentType} from '../../Types/Types.ts'
 import { getJobRecruiterComment, getShortJobSummary } from '../../helpers/apiCalls'
 import LoadingWheel from "../LoadingSpinners/LoadingWheel";
 import AIRecruiterModal, { dataFromApi } from "../AIRecruiterModal/AIRecruiterModal";
+import AiSummaryModal from '../AISummaryModal/AISummaryModal.tsx'
 
 type agent = "recruiter" | "more-to-come"
 
@@ -15,7 +17,7 @@ type PropTypes = {
 
 const AIButton = ({buttonText, market, linkToAdd, agent }: PropTypes) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [shortSummary, setShortSummary] = useState<string | dataFromApi | null>(null)
+  const [shortSummary, setShortSummary] = useState<JobListingCommentType | null>(null)
   const [jobComment, setJobComment] = useState<dataFromApi | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
@@ -25,7 +27,7 @@ const AIButton = ({buttonText, market, linkToAdd, agent }: PropTypes) => {
     setShortSummary(null);
     try {
       if (agent) {
-        const dataWithAgent = await getJobRecruiterComment(`${agent}/` + `${market + "/"}`, `${linkToAdd}`);
+        const dataWithAgent  = await getJobRecruiterComment(`${agent}/` + `${market + "/"}`, `${linkToAdd}`);
         if (dataWithAgent.error) {
           setLoading(false)
           throw new Error(dataWithAgent.error);
@@ -40,8 +42,8 @@ const AIButton = ({buttonText, market, linkToAdd, agent }: PropTypes) => {
           setLoading(false)
           throw new Error(dataWithoutAgent.error);
         } else {
-            if (dataWithoutAgent?.data) {
-                setShortSummary(dataWithoutAgent.data);
+            if (dataWithoutAgent) {
+                setShortSummary(dataWithoutAgent);
             }
         }
       }
@@ -56,10 +58,13 @@ const AIButton = ({buttonText, market, linkToAdd, agent }: PropTypes) => {
     fetchData();
   }
 
-  useEffect(() => {
-    if (!shortSummary) return
-    setOpen(true)
-  },[shortSummary])
+    useEffect(() => {
+        if (shortSummary) setOpen(true)
+    },[shortSummary])
+
+    useEffect(() => {
+        if (jobComment) setOpen(true);
+    }, [jobComment]);
 
   const closeModal = () => {
     setShortSummary(null)
@@ -75,42 +80,8 @@ const AIButton = ({buttonText, market, linkToAdd, agent }: PropTypes) => {
         {loading && !error && <LoadingWheel />}
         {!loading && error && (!shortSummary || !jobComment) && 'error'}
       </Button>
-      {agent && (<AIRecruiterModal data={jobComment} open={open} closeModal={closeModal} />)}
-      {!agent && (
-              <Modal
-                aria-labelledby="modal-title"
-                aria-describedby="modal-desc"
-                open={open}
-                onClose={closeModal}
-                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-              >
-                <Sheet
-                  variant="outlined"
-                  sx={{
-                    maxWidth: 500,
-                    borderRadius: 'md',
-                    p: 3,
-                    boxShadow: 'lg',
-                  }}
-                >
-                  <ModalClose variant="plain" sx={{ m: 1 }} />
-                  <Typography
-                    component="h2"
-                    id="modal-title"
-                    level="h4"
-                    textColor="inherit"
-                    fontWeight="lg"
-                    mb={1}
-                  >
-                    Job summary
-                  </Typography>
-                  <Typography id="modal-desc" textColor="text.tertiary">
-                  {/* 1+ years of experience in developing tools and systems for smart electricity meter administration; Experience working with the .NET framework; Knowledge of OOP; Experience working with SQL and REST API. */}
-                  {shortSummary as string}
-                  </Typography>
-                </Sheet>
-              </Modal>
-      )}
+      {jobComment && <AIRecruiterModal data={jobComment} open={open} closeModal={closeModal} />}
+      {shortSummary && (<AiSummaryModal data={shortSummary} open={open} closeModal={closeModal} />)}
     </>
   );
 }
