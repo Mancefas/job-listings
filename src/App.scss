@@ -133,16 +133,24 @@ body {
 @media screen and (min-width: 600px){
 
   .btns-container {
-    width: 50vw;
+    width: 80vw;
   }
 
   .main-img {
     width: 25vw;
   }
 
+  .job-listing {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+  }
+
   .job-item {
     &__container {
-    width: 40%;
+      width: 40%;
     }
 
     &__company-container {
