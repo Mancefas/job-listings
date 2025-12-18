@@ -6,7 +6,6 @@ $color-ai-button: #97B1A6;
 
 #root {
   width: 90vw;
-  max-width: 1280px;
   min-height: 100vh;
   height: fit-content;
   margin: 0 auto;
@@ -141,6 +140,7 @@ body {
   }
 
   .job-listing {
+    margin: auto;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
