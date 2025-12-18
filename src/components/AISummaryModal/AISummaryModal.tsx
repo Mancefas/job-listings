@@ -18,7 +18,7 @@ const AiSummaryModal = ({data, open, closeModal}: AISummaryModalProps) => {
             aria-describedby="modal-desc"
             open={open}
             onClose={closeModal}
-            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            sx={{ display: 'flex', flexDirection: column , justifyContent: 'center', alignItems: 'flex-start' }}
         >
             <Sheet
                 variant="outlined"
