@@ -61,7 +61,7 @@ const AiSummaryModal = ({data, open, closeModal}: AISummaryModalProps) => {
                     </Typography>
                 </Stack>
 
-                <Stack direction="row" alignItems="center" spacing={2}>
+                <Stack direction="row" alignItems="flex-start" spacing={2}>
                     <Typography
                         component="h4"
                         level="h4"
